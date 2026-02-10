@@ -1,3 +1,5 @@
+from config import resources, MENU, ACCEPTED_COINS
+from utils import euro_formater, ask_yes_no
 
 # ---------------------
 # Hilfsfunktionen
@@ -10,12 +12,6 @@ def report() -> None:
     print(f"Kaffee: {resources['coffee_g']} g")
     print(f"Geld: {euro_formater(amount=resources['money_eur'])}")
     print("-----------\n")
-
-def euro_formater(amount: float) -> str:
-    """Schöne Euro-Ausgabe"""
-    # 35.50 -> 35,50 €
-    # 24.2425 -> 24,24 €
-    return f"{amount:.2f}".replace(".", ",") + " €"
 
 # Tuple Beispiel: (True, [Milch, Apfel...])
 # Tuple Beispiel: (True, "Gandalf")
@@ -105,19 +101,6 @@ def payment_process(price: float) -> tuple[bool, float]:
         else:
             return True, inserted
         
-def ask_yes_no(prompt: str) -> bool:
-    """
-    Fragt den Benutzer nach ja/nein.
-    Gibt 'True' für ja zurück.
-    """
-    while True:
-        answer = input(prompt).strip().lower()
-        if answer in ("ja", "j", "yes", "y"):
-            return True
-        if answer in ("nein", "n", "no"):
-            return False
-        print("Bitte mit 'ja' oder 'nein' antworten.")
-        
 def handle_change_and_profit(price: float, inserted: float) -> float:
     """
     Berechnet das Wechselgeld und bucht die Einnahmen.
@@ -195,6 +178,7 @@ def main():
         make_drink(choice)
         
         deduct_ingredients(choice)
+        print("Zutaten wurden aktualisiert. Zurück zur Startsituation...\n")
 
 if __name__ == "__main__":
     main()
