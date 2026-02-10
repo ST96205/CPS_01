@@ -1,8 +1,8 @@
 """
-Enthält alle festen Daten und Startwerte (Konfigurationen + Systemzustand)
-""" 
+Enthlält alle festen Daten und Startwerte (Konfiguration + Systemzustand)
+"""
 
-# Das ist das Menü mit benötigten Ressourcen 
+# Das ist das Menu mit benötigten Ressourcen pro Getränk:
 MENU = {
     "espresso": {
         "price": 8.80,
@@ -18,8 +18,10 @@ MENU = {
     }
 }
 
+# Erlaubte Münzen:
 ACCEPTED_COINS = [0.05, 0.10, 0.20, 1.00, 2.00]
 
+# Systemzustand / Ressourcen:
 resources = {
     "water_ml": 150,
     "milk_ml": 300,
