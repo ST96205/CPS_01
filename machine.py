@@ -6,8 +6,9 @@ Funktionen, die das Verhalten des Automaten beschreiben:
 - Zubereitung und Verbrauch
 """
 
-from config import resources, MENU
+from config import resources, MENU, MAX_RESOURCES
 from utils import euro_formater
+import time
 
 def report() -> None:
     """Gibt den aktuellen Status des Automaten aus."""
@@ -59,10 +60,24 @@ def handle_change_and_profit(price: float, inserted: float) -> float:
 
 def make_drink(drink_key: str) -> None:
     """
-    Simuliert die Zubereitung des Getränks.
+    Simuliert die Zubereitung des Getränks mit Zeitverzögerung.
+    In einem echten CPS würden hier Aktoren arbeiten (Heizung, Pumpe, Mühle).
     """
     
     print("\nGetränk wird zubereitet...")
+    # 1. Schritt: Bohnen mahlen:
+    print("Kaffee wird gemahlen...")
+    time.sleep(2)
+    
+    # 2. Schritt: Wasser erhitzen:
+    print("Wasser wird erhitzt...")
+    time.sleep(2)
+    
+    # 3. Schritt: Getränk brühen:
+    print("Getränk wird gebrüht...")
+    time.sleep(3)
+    
+    # Fertig
     print(f"{drink_key.capitalize()} ist fertig. ☕")
     print("Bitte entnehmen.\n")
     
@@ -75,3 +90,17 @@ def deduct_ingredients(drink_key: str) -> None:
     # Für jede Zutat die benötigt wird, ziehen wir die Menge von Ressourcen ab:
     for ing, amount_needed in needs.items():
         resources[ing] -= amount_needed # resources[ing] = resources[ing] - amount_needed
+        
+def fill_water() -> None:
+    resources["water_ml"] = MAX_RESOURCES["water_ml"]
+
+def fill_milk() -> None:
+    resources["milk_ml"] = MAX_RESOURCES["milk_ml"]
+
+def fill_coffee() -> None:
+    resources["coffee_g"] = MAX_RESOURCES["coffee_g"]
+
+def take_money() -> float:
+    taken = resources["money_eur"]
+    resources["money_eur"] = 0.0
+    return taken
